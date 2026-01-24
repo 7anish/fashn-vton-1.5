@@ -1,3 +1,8 @@
+"""
+Detection utilities adapted from YOLOX (Apache-2.0):
+https://github.com/Megvii-BaseDetection/YOLOX
+"""
+
 import cv2
 import numpy as np
 

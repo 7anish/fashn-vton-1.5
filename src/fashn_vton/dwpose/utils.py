@@ -1,3 +1,8 @@
+"""
+Drawing utilities adapted from DWPose (Apache-2.0):
+https://github.com/IDEA-Research/DWPose
+"""
+
 import math
 
 import cv2

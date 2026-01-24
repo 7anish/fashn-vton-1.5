@@ -34,10 +34,8 @@ dependencies = [
     "numpy>=1.21.0",
     "opencv-python>=4.5.0",
     "tqdm>=4.65.0",
-    "pyyaml>=6.0",
     "einops>=0.6.0",
     "onnxruntime>=1.14.0",
-    "requests>=2.28.0",
     "matplotlib>=3.5.0",
     "fashn-human-parser>=0.1.1",
 ]
@@ -50,10 +48,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/fashn-AI/fashn-vton"
-Documentation = "https://github.com/fashn-AI/fashn-vton#readme"
-Repository = "https://github.com/fashn-AI/fashn-vton"
-Issues = "https://github.com/fashn-AI/fashn-vton/issues"
+Homepage = "https://github.com/fashn-AI/fashn-vton-1.5"
+Documentation = "https://github.com/fashn-AI/fashn-vton-1.5#readme"
+Repository = "https://github.com/fashn-AI/fashn-vton-1.5"
+Issues = "https://github.com/fashn-AI/fashn-vton-1.5/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

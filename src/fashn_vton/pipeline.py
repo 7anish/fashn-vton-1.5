@@ -69,6 +69,12 @@ class TryOnPipeline:
         self.device = torch.device(device if device else ("cuda" if torch.cuda.is_available() else "cpu"))
         self.logger.info(f"Using device: {self.device}")
 
+        # Setup inference dtype
+        self.inference_dtype = torch.float32
+        if self.device.type == "cuda" and torch.cuda.is_bf16_supported():
+            self.inference_dtype = torch.bfloat16
+        self.logger.info(f"Using dtype: {self.inference_dtype}")
+
         # Validate weights exist
         self._validate_weights()
 
@@ -113,7 +119,7 @@ class TryOnPipeline:
         self.tryon_model = TryOnModel()
         state_dict = load_checkpoint(model_path, device=str(self.device))
         self.tryon_model.load_state_dict(state_dict)
-        self.tryon_model.to(self.device).eval()
+        self.tryon_model.to(self.device, dtype=self.inference_dtype).eval()
 
         self.logger.info("TryOnModel loaded")
 
@@ -284,11 +290,10 @@ class TryOnPipeline:
         )
 
         # Cast to inference dtype
-        dtype = torch.bfloat16 if self.device.type == "cuda" else torch.float32
-        ca_tensor = ca_tensor.to(dtype=dtype)
-        garment_tensor = garment_tensor.to(dtype=dtype)
-        person_pose_tensor = person_pose_tensor.to(dtype=dtype)
-        garment_pose_tensor = garment_pose_tensor.to(dtype=dtype)
+        ca_tensor = ca_tensor.to(dtype=self.inference_dtype)
+        garment_tensor = garment_tensor.to(dtype=self.inference_dtype)
+        person_pose_tensor = person_pose_tensor.to(dtype=self.inference_dtype)
+        garment_pose_tensor = garment_pose_tensor.to(dtype=self.inference_dtype)
 
         # Run sampling
         self.logger.info(f"Running inference with {num_timesteps} timesteps...")

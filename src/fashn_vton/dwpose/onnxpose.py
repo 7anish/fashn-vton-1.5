@@ -1,3 +1,8 @@
+"""
+Pose estimation adapted from DWPose/MMPose (Apache-2.0):
+https://github.com/IDEA-Research/DWPose
+"""
+
 from typing import List, Tuple
 
 import cv2
