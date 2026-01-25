@@ -1,6 +1,6 @@
 # FASHN VTON v1.5: Efficient Maskless Virtual Try-On in Pixel Space
 
-[![HuggingFace Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/fashn-ai/fashn-vton-1.5) [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://fashn.ai/research/vton-1-5) [![HuggingFace Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/fashn-ai/fashn-vton-1.5) [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-lightgrey)]() [![Demo](https://img.shields.io/badge/Demo-Coming%20Soon-lightgrey)]() [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 by [FASHN AI](https://fashn.ai)
 
