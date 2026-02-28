@@ -1,0 +1,59 @@
+name: Build & Push Docker Image to Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Step 1: Free up disk space ──────────────────────────────────────────
+      # GitHub Actions runners only have ~14 GB by default.
+      # This action removes unused tools and frees ~25 GB.
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      # ── Step 2: Verify free space ───────────────────────────────────────────
+      - name: Check available disk space
+        run: df -h
+
+      # ── Step 3: Checkout your repo ──────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Step 4: Set up Docker Buildx ────────────────────────────────────────
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ── Step 5: Log in to Docker Hub ────────────────────────────────────────
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # ── Step 6: Build and push ───────────────────────────────────────────────
+      # Uses BuildKit cache to speed up future builds.
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/fashn-vton:latest
+            ${{ secrets.DOCKER_USERNAME }}/fashn-vton:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # No --platform flag = builds for linux/amd64 by default (correct for RunPod)
